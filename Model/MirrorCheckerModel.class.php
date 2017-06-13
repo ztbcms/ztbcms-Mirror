@@ -8,6 +8,6 @@ namespace Mirror\Model;
 
 use Think\Model;
 
-class MirrorTaskModel extends Model {
+class MirrorCheckerModel extends Model {
 
 }
