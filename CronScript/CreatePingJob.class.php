@@ -15,6 +15,9 @@ use Queue\Libs\Queue;
  */
 class CreatePingJob extends Cron {
 
+    //默认队列名
+    const QUEUE_MIRROR = 'Mirror';
+
     /**
      * 执行任务回调
      *
@@ -27,7 +30,7 @@ class CreatePingJob extends Cron {
         $db = D('Mirror/MirrorTask');
         $tasks = $db->where(['next_time' => ['ELT', $now]])->select();
         foreach ($tasks as $index => $task) {
-            $queue->push('default', new PingWebsiteJob($task['id'], $task['url']));
+            $queue->push(self::QUEUE_MIRROR, new PingWebsiteJob($task['id'], $task['url']));
             $next_time = $now + doubleval($task['minute']) * 60;
             $db->where(['id' => $task['id']])->save(['next_time' => $next_time]);
         }
