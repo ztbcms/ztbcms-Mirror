@@ -7,7 +7,7 @@
                 <h4>搜索</h4>
             </div>
             <div class="col-sm-6">
-                <a href="#" class="btn btn-success  pull-right" style="margin-left: 8px;">新增Checker</a>
+                <a href="{:U('Mirror/Index/create_checker')}" class="btn btn-success  pull-right" style="margin-left: 8px;">新增Checker</a>
 
             </div>
         </div>

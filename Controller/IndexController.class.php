@@ -10,14 +10,14 @@ use Common\Controller\AdminBase;
 
 class IndexController extends AdminBase {
 
-    function checker_list(){
+    function checker_list() {
         $this->display();
     }
 
     /**
      * 获取Cheker列表操作
      */
-    public function getCheckerList(){
+    public function getCheckerList() {
         $where = [];
         if (I('where')) {
             $where = I('where');
@@ -44,46 +44,47 @@ class IndexController extends AdminBase {
         $this->ajaxReturn(self::createReturn(true, $data));
     }
 
-    function create_checker(){
+    function create_checker() {
         $this->display();
     }
 
-    function do_create_checker(){
-
+    function do_create_checker() {
+        $data = I('post.');
+        $result = D('Mirror/MirrorChecker')->add($data);
+        $this->ajaxReturn(self::createReturn(true, $result, '操作成功'));
     }
 
-    function edit_checker(){
+    function edit_checker() {
         $this->display();
     }
 
-    function do_edit_checker(){
+    function do_edit_checker() {
 
     }
 
-    function view_checker(){
+    function view_checker() {
         $this->display();
     }
 
-    function alert_list(){
+    function alert_list() {
         $this->display();
     }
 
-    function create_alert(){
+    function create_alert() {
         $this->display();
     }
 
-    function do_create_alert(){
+    function do_create_alert() {
 
     }
 
-    function edit_alert(){
+    function edit_alert() {
         $this->display();
     }
 
-    function do_edit_alert(){
+    function do_edit_alert() {
 
     }
-
 
 
 }
