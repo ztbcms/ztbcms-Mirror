@@ -27,7 +27,8 @@ return array(
     //依赖模块
     'depend' => array(
         'Queue',
-        'Cron'
+        'Cron',
+        'Message'
     ),
     //注册缓存
     'cache' => array(),
