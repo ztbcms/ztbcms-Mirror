@@ -12,9 +12,10 @@ CREATE TABLE `cms_mirror_log` (
 
 CREATE TABLE `cms_mirror_checker` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `url` int(11) NOT NULL COMMENT '网址',
+  `url` varchar(1024) NOT NULL DEFAULT '' COMMENT '网址',
   `next_time` int(11) NOT NULL COMMENT '下一次执行时间',
   `minute` int(11) NOT NULL DEFAULT '1' COMMENT '多少分钟重复一次',
+  `enable` tinyint(2) NOT NULL DEFAULT '1' COMMENT '是否启用,0否,1是',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

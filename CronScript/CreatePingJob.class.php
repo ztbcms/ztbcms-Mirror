@@ -8,6 +8,7 @@ namespace Mirror\CronScript;
 
 use Cron\Base\Cron;
 use Mirror\Jobs\PingWebsiteJob;
+use Mirror\Model\MirrorCheckerModel;
 use Queue\Libs\Queue;
 
 /**
@@ -27,8 +28,8 @@ class CreatePingJob extends Cron {
         $now = time();
 
         $queue = Queue::getInstance();
-        $db = D('Mirror/MirrorTask');
-        $tasks = $db->where(['next_time' => ['ELT', $now]])->select();
+        $db = D('Mirror/MirrorChecker');
+        $tasks = $db->where(['next_time' => ['ELT', $now], 'enable' => MirrorCheckerModel::ENABLE_YES])->select();
         foreach ($tasks as $index => $task) {
             $queue->push(self::QUEUE_MIRROR, new PingWebsiteJob($task['id'], $task['url']));
             $next_time = $now + doubleval($task['minute']) * 60;
