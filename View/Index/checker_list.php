@@ -67,6 +67,7 @@
                         </td>
                         <td >
                             <button type="button" class="btn btn-primary" @click="handleMessage(item.id)">触发处理</button>
+                            <a :href="'/Mirror/Index/logs?checker_id=' + item.id" type="button" class="btn btn-primary">日志</a>
                         </td>
                     </tr>
                     </tbody>
@@ -98,8 +99,7 @@
                     page_count: 0,
                     total: 0,
                     where: {
-                        process_status: '',
-                        read_status: ''
+
                     }
                 },
                 filters: {

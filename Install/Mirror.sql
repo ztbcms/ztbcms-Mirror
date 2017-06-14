@@ -1,6 +1,6 @@
 CREATE TABLE `cms_mirror_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `task_id` int(11) NOT NULL COMMENT '所属任务ID',
+  `checker_id` int(11) NOT NULL COMMENT '所属Checker ID',
   `url` varchar(1024) NOT NULL DEFAULT '' COMMENT '网址',
   `start_time` bigint(13) NOT NULL COMMENT '开始时间',
   `end_time` bigint(13) NOT NULL COMMENT '结束时间',
