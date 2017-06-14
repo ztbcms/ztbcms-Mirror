@@ -13,16 +13,16 @@ use Queue\Libs\Utils;
 class PingWebsiteJob extends Job {
 
     public $url;
-    public $task_id;
+    public $checker_id;
 
     /**
      * PingWebsiteJob constructor.
      *
-     * @param $task_id
+     * @param $checker_id
      * @param $url
      */
-    public function __construct($task_id, $url) {
-        $this->task_id = $task_id;
+    public function __construct($checker_id, $url) {
+        $this->checker_id = $checker_id;
         $this->url = $url;
     }
 
@@ -40,6 +40,7 @@ class PingWebsiteJob extends Job {
         $data = [
             'url' => $this->url,
             'start_time' => Utils::now(),
+            'checker_id' => $this->checker_id
         ];
         try {
             $response = $client->request('GET', $this->url);

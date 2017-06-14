@@ -53,6 +53,23 @@ return array(
                 "status" => 0,
                 "name" => "创建Alert操作",
             ),
+
+
+
+            array(
+                "route" => "Mirror/Index/logs",
+                "type" => 1,
+                "status" => 0,
+                "name" => "日志列表",
+            ),
+
+            array(
+                "route" => "Mirror/Index/getLogs",
+                "type" => 1,
+                "status" => 0,
+                "name" => "获取日志列表接口",
+            ),
+
         ),
     ),
 );

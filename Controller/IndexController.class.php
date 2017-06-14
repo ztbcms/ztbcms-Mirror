@@ -31,8 +31,9 @@ class IndexController extends AdminBase {
         $order = 'id desc';
         $page = I('page', 1);
         $limit = I('limit', 20);
-        $lists = M('MirrorChecker')->where($where)->order($order)->page($page, $limit)->select();
-        $total = M('MirrorChecker')->where($where)->count();
+        $db = D('Mirror/MirrorChecker');
+        $lists = $db->where($where)->order($order)->page($page, $limit)->select();
+        $total = $db->where($where)->count();
         $data = [
             'items' => $lists ? $lists : [],
             'limit' => $limit,
@@ -84,6 +85,45 @@ class IndexController extends AdminBase {
 
     function do_edit_alert() {
 
+    }
+
+    /**
+     * 日志列表
+     */
+    function logs(){
+        $this->display();
+    }
+
+    /**
+     * 获取日志列表接口
+     */
+    function getLogs(){
+        $where = [];
+        if (I('where')) {
+            $where = I('where');
+            foreach ($where as $key => $item) {
+                if ($item == '') {
+                    unset($where[$key]);
+                }
+            }
+        }
+
+        $order = 'id desc';
+        $page = I('page', 1);
+        $limit = I('limit', 20);
+        $db = D('Mirror/MirrorLog');
+        $lists = $db->where($where)->order($order)->page($page, $limit)->select();
+        $total = $db->where($where)->count();
+
+        $data = [
+            'items' => $lists ? $lists : [],
+            'limit' => $limit,
+            'page' => $page,
+            'total' => $total,
+            'page_count' => ceil($total / $limit),
+        ];
+
+        $this->ajaxReturn(self::createReturn(true, $data));
     }
 
 
