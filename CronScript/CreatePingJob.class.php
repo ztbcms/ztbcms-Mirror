@@ -29,11 +29,11 @@ class CreatePingJob extends Cron {
 
         $queue = Queue::getInstance();
         $db = D('Mirror/MirrorChecker');
-        $tasks = $db->where(['next_time' => ['ELT', $now], 'enable' => MirrorCheckerModel::ENABLE_YES])->select();
-        foreach ($tasks as $index => $task) {
-            $queue->push(self::QUEUE_MIRROR, new PingWebsiteJob($task['id'], $task['url']));
-            $next_time = $now + doubleval($task['minute']) * 60;
-            $db->where(['id' => $task['id']])->save(['next_time' => $next_time]);
+        $checkers = $db->where(['next_time' => ['ELT', $now], 'enable' => MirrorCheckerModel::ENABLE_YES])->select();
+        foreach ($checkers as $index => $checker) {
+            $queue->push(self::QUEUE_MIRROR, new PingWebsiteJob($checker['id'], $checker['url']));
+            $next_time = $now + doubleval($checker['minute']) * 60;
+            $db->where(['id' => $checker['id']])->save(['next_time' => $next_time]);
         }
 
     }
