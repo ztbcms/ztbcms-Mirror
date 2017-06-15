@@ -7,6 +7,7 @@
 namespace Mirror\Libs\Message;
 
 use Message\Libs\Message;
+use Mirror\Libs\Sender\EmailSender;
 
 /**
  * 监控警报信息
@@ -27,6 +28,8 @@ class MirrorAlertMessage extends Message {
      * @return array Senders数组
      */
     function createSender() {
-        return [];
+        return [
+            new EmailSender()
+        ];
     }
 }
