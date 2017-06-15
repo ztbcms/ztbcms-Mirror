@@ -68,6 +68,7 @@
                         <td >
                             <button type="button" class="btn btn-primary" @click="handleMessage(item.id)">触发处理</button>
                             <a :href="'/Mirror/Index/logs?checker_id=' + item.id" type="button" class="btn btn-primary">日志</a>
+                            <a :href="'/Mirror/Index/create_alert?checker_id=' + item.id " class="btn btn-success ">新增 Alert</a>
                         </td>
                     </tr>
                     </tbody>

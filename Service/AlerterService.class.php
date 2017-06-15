@@ -36,16 +36,16 @@ class AlerterService extends BaseService {
         $cal_check_value = $check_field->getValue();
 
         $msg = null;
-        if ($alert['check_operator'] == '>') {
+        if ($alert['check_operator'] == 'GT') {
             if ($cal_check_value > $alert['check_value']) {
 
-                $msg = new MirrorAlertMessage($alert['type_value'], '你监控的 ' . $checker['url'] . ' ' . $check_field->getName() . '大于' . $alert['check_value']);
+                $msg = new MirrorAlertMessage($alert['type_value'], '你监控的 ' . $checker['url'] . ' ' . $check_field->getName() . '高于' . $alert['check_value']);
             }
         }
 
-        if ($alert['check_operator'] == '<') {
+        if ($alert['check_operator'] == 'LT') {
             if ($cal_check_value < $alert['check_value']) {
-                $msg = new MirrorAlertMessage($alert['type_value'], '你监控的 ' . $checker['url'] . ' ' . $check_field->getName() . '小于' . $alert['check_value']);
+                $msg = new MirrorAlertMessage($alert['type_value'], '你监控的 ' . $checker['url'] . ' ' . $check_field->getName() . '低于' . $alert['check_value']);
             }
         }
 
@@ -107,5 +107,27 @@ class AlerterService extends BaseService {
 
         return $res;
     }
+
+    /**
+     * 获取检测字段
+     *
+     * @return array
+     */
+    static function getCheckFields(){
+        $config_check_fields = C('MIRROR_CHECK_FILE');
+
+        $result = [];
+        foreach ($config_check_fields as $index => $config_check_field){
+            $check_field = self::instanceField($config_check_field);
+            $result[] = [
+                'name' => $check_field->getName(),
+                'class' => get_class($check_field)
+            ];
+        }
+
+        return self::createReturn(true, $result);
+    }
+
+
 
 }

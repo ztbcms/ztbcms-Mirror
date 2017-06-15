@@ -8,7 +8,7 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">新增Checker</h3>
+                            <h3 class="box-title">新增 Alert</h3>
                             <section style="margin-top: 8px;">
                                 <div class="row">
 
@@ -22,13 +22,64 @@
                             <form class="form-horizontal">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">URL</label>
+                                        <label class="col-sm-2 control-label">通知类型</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control"  v-model.trim="url">
+                                            <select class="form-control" v-model="type">
+                                                <option value="email">email</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">频率（分钟/次）</label>
+                                        <label class="col-sm-2 control-label">通知人邮箱</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" placeholder="请填写邮箱" class="form-control" v-model="type_value">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" style="display: none;">
+                                        <label class="col-sm-2 control-label">Checker ID</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="text" step="1" min="1" class="form-control" v-model="checker_id">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">监控信息</label>
+
+                                        <div class="col-sm-10">
+<!--                                            <input type="number" step="1" min="1" class="form-control">-->
+                                            <select class="form-control"  v-model="check_field">
+                                                <option value="">请选择</option>
+                                                <volist name="check_fields" id="check_field">
+                                                    <option value="{$check_field['class']}">{$check_field['name']}</option>
+                                                </volist>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">比较符</label>
+
+                                        <div class="col-sm-10">
+                                            <select class="form-control" v-model="check_operator">
+                                                <option value="GT">大于</option>
+                                                <option value="LT">小于</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">监控阀值</label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" step="1" min="1" class="form-control" v-model="check_value">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">监控频率(分钟)</label>
 
                                         <div class="col-sm-10">
                                             <input type="number" step="1" min="1" class="form-control" v-model="minute">
@@ -57,8 +108,6 @@
 
                                         </div>
                                     </div>
-
-
 
                                 </div>
                                 <!-- /.box-body -->
@@ -101,7 +150,12 @@
             var App = new Vue({
                 el: '#app',
                 data:{
-                    url: '',
+                    type: 'email',
+                    type_value: '',
+                    checker_id: "{:I('get.checker_id')}",
+                    check_field: '',
+                    check_operator: 'GT',
+                    check_value: '',
                     minute: '5',
                     enable: 1
                 },
@@ -118,12 +172,17 @@
                     doConfirm: function () {
                         var that = this;
                         var data = {
-                            url: that.url,
+                            type: that.type,
+                            type_value: that.type_value,
+                            checker_id: that.checker_id,
+                            check_field: that.check_field,
+                            check_operator: that.check_operator,
+                            check_value: that.check_value,
                             minute: that.minute,
                             enable: that.enable
                         };
                         $.ajax({
-                            url: "{:U('Mirror/Index/do_create_checker')}",
+                            url: "{:U('Mirror/Index/do_create_alert')}",
                             type: 'post',
                             dataType: 'json',
                             data: data,

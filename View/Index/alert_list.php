@@ -7,8 +7,6 @@
                 <h4>搜索</h4>
             </div>
             <div class="col-sm-6">
-                <a href="{:U('Mirror/Index/create_alert')}" class="btn btn-success  pull-right" style="margin-left: 8px;">新增 Alert</a>
-
             </div>
         </div>
         <hr>
@@ -36,7 +34,7 @@
                     <tr style="background: ghostwhite;">
                         <td width="50" align="left">ID</td>
                         <td width="100" align="left">通知类型</td>
-                        <td width="100" align="left">通知信息</td>
+                        <td width="100" align="left">通知人</td>
                         <td width="100" align="left">监控信息</td>
                         <td width="100" align="left">Check operator</td>
                         <td width="100" align="left">监控值</td>
