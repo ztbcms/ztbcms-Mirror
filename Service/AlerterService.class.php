@@ -8,7 +8,7 @@ namespace Mirror\Service;
 
 use Message\Service\MessageService;
 use Mirror\Libs\CheckField\AbstractField;
-use Mirror\Libs\MirrorAlertMessage;
+use Mirror\Libs\Message\MirrorAlertMessage;
 use System\Service\BaseService;
 
 class AlerterService extends BaseService {

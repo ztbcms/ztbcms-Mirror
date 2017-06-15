@@ -4,7 +4,7 @@
  * author: Jayin <tonjayin@gmail.com>
  */
 
-namespace Mirror\Libs;
+namespace Mirror\Libs\Message;
 
 use Message\Libs\Message;
 
