@@ -23,6 +23,12 @@ return array(
                 "name" => "Checkers列表",
             ),
             array(
+                "route" => "Mirror/Index/getCheckerList",
+                "type" => 1,
+                "status" => 0,
+                "name" => "获取Cheker列表操作",
+            ),
+            array(
                 "route" => "Mirror/Index/create_checker",
                 "type" => 1,
                 "status" => 0,
@@ -42,6 +48,13 @@ return array(
                 "name" => "Alert列表",
             ),
             array(
+                "route" => "Mirror/Index/getAlertList",
+                "type" => 1,
+                "status" => 0,
+                "name" => "获取Alert列表操作",
+            ),
+
+            array(
                 "route" => "Mirror/Index/create_alert",
                 "type" => 1,
                 "status" => 0,
@@ -53,9 +66,6 @@ return array(
                 "status" => 0,
                 "name" => "创建Alert操作",
             ),
-
-
-
             array(
                 "route" => "Mirror/Index/logs",
                 "type" => 1,

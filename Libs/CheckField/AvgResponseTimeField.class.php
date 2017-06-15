@@ -24,8 +24,6 @@ class AvgResponseTimeField extends AbstractField {
      * @return mixed
      */
     function getValue() {
-        // TODO: Implement getValue() method.
-
         $data = $this->getData();
         $total = 0;
         $result = 0;

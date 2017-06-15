@@ -71,6 +71,37 @@ class IndexController extends AdminBase {
         $this->display();
     }
 
+    /**
+     * 获取Alert列表操作
+     */
+    public function getAlertList() {
+        $where = [];
+        if (I('where')) {
+            $where = I('where');
+            foreach ($where as $key => $item) {
+                if ($item == '') {
+                    unset($where[$key]);
+                }
+            }
+        }
+
+        $order = 'id desc';
+        $page = I('page', 1);
+        $limit = I('limit', 20);
+        $db = D('Mirror/MirrorAlert');
+        $lists = $db->where($where)->order($order)->page($page, $limit)->select();
+        $total = $db->where($where)->count();
+        $data = [
+            'items' => $lists ? $lists : [],
+            'limit' => $limit,
+            'page' => $page,
+            'total' => $total,
+            'page_count' => ceil($total / $limit),
+        ];
+
+        $this->ajaxReturn(self::createReturn(true, $data));
+    }
+
     function create_alert() {
         $this->display();
     }
