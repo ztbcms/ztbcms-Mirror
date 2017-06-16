@@ -4,25 +4,21 @@
     <div id="app" style="padding: 8px;">
         <div class="row">
             <div class="col-sm-6">
-                <h4>搜索</h4>
+                <h4>Alert 列表</h4>
             </div>
             <div class="col-sm-6">
             </div>
         </div>
         <hr>
         <div class="search_type cc mb10">
-            消息源：<input type="text" v-model="where.target" name="" class="input">
-            发送者：<input type="text" v-model="where.sender" name="" class="input">
-            接收者：<input type="text" v-model="where.receiver" name="" class="input">
-            是否处理：<select v-model="where.process_status"  style="background: white;height: 28px;">
-                <option value="">处理状态</option>
-                <option value="0">未处理</option>
-                <option value="1">已处理</option>
-            </select>
-            是否阅读：<select v-model="where.read_status" style="background: white;height: 28px;">
-                <option value="">处理状态</option>
-                <option value="0">未读</option>
-                <option value="1">已读</option>
+            <div style="display: none;">
+                Checker：<input type="text" v-model="where.checker_id">
+            </div>
+
+            启用状态：<select v-model="where.enable" style="background: white;height: 28px;">
+                <option value="">全部</option>
+                <option value="1">启用</option>
+                <option value="0">禁用</option>
             </select>
             <button @click="getList" class="btn btn-primary" style="margin-left: 8px;">搜索</button>
         </div>
@@ -33,6 +29,7 @@
                     <thead>
                     <tr style="background: ghostwhite;">
                         <td width="50" align="left">ID</td>
+                        <td width="100" align="left">URL</td>
                         <td width="100" align="left">通知类型</td>
                         <td width="100" align="left">通知人</td>
                         <td width="100" align="left">监控信息</td>
@@ -48,6 +45,9 @@
                     <tr v-for="item in items">
                         <td >
                             {{ item.id }}
+                        </td>
+                        <td>
+                            {{ item.checkerData['url'] }}
                         </td>
                         <td>
                             {{ item.type }}
@@ -113,7 +113,8 @@
                     page_count: 0,
                     total: 0,
                     where: {
-
+                        checker_id: "{:I('get.checker_id')}",
+                        enable: ''
                     }
                 },
                 filters: {

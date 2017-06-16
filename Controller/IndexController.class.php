@@ -90,7 +90,7 @@ class IndexController extends AdminBase {
         $page = I('page', 1);
         $limit = I('limit', 20);
         $db = D('Mirror/MirrorAlert');
-        $lists = $db->where($where)->order($order)->page($page, $limit)->select();
+        $lists = $db->where($where)->order($order)->page($page, $limit)->relation(true)->select();
         $total = $db->where($where)->count();
         $data = [
             'items' => $lists ? $lists : [],

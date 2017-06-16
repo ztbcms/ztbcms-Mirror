@@ -60,6 +60,7 @@
                         </td>
                         <td >
                             <a :href="'/Mirror/Index/logs?checker_id=' + item.id" type="button" class="btn btn-primary">日志</a>
+                            <a :href="'/Mirror/Index/alert_list?checker_id=' + item.id " class="btn btn-primary ">Alert 列表</a>
                             <a :href="'/Mirror/Index/create_alert?checker_id=' + item.id " class="btn btn-success ">新增 Alert</a>
                         </td>
                     </tr>
