@@ -11,7 +11,7 @@ return array(
     //模块简介
     'introduce' => '监控',
     //模块介绍地址
-    'address' => 'http://doc.ztbcms.com/module/message/',
+    'address' => 'http://doc.ztbcms.com/module/mirror/',
     //模块作者
     'author' => 'Jayin',
     //作者地址
@@ -23,7 +23,7 @@ return array(
     //适配最低版本，
     'adaptation' => '3.6.0.0',
     //签名
-    'sign' => 'd78d201337cf9f6ea9ca8d73e8c8fefe',
+    'sign' => '2403def5083f02105e7802b3b315681e',
     //依赖模块
     'depend' => array(
         'Queue',
