@@ -43,14 +43,14 @@
                                         <div class="col-sm-10">
                                             <div class="radio" style="display: inline-block;">
                                                 <label>
-                                                    <input type="radio" name="enable" value="1" v-model="enable">
+                                                    <input type="radio" name="enable" :value="1" v-model="enable">
                                                     启用
                                                 </label>
                                             </div>
 
                                             <div class="radio" style="display: inline-block;">
                                                 <label>
-                                                    <input type="radio" name="enable" value="0"  v-model="enable">
+                                                    <input type="radio" name="enable" :value="0"  v-model="enable">
                                                     禁用
                                                 </label>
                                             </div>
@@ -101,12 +101,22 @@
             var App = new Vue({
                 el: '#app',
                 data:{
-                    url: '',
-                    minute: '5',
-                    enable: 1
+                    id: "{:I('get.checker_id', '')}",
+                    url: "<?php echo !isset($data['url'])? '':$data['url']; ?>",
+                    minute: "<?php echo !isset($data['minute'])? '5':$data['minute']; ?>",
+                    enable: "<?php echo !isset($data['enable'])? '1':$data['enable']; ?>"
                 },
                 mounted: function(){
                     $('#app').show();
+                },
+                computed: {
+                  isEnable: function(){
+                      if(this.enable == 0){
+                          return false;
+                      }else{
+                          return true;
+                      }
+                  }
                 },
                 methods: {
                     //关闭layer窗口
@@ -118,12 +128,19 @@
                     doConfirm: function () {
                         var that = this;
                         var data = {
+                            id: that.id,
                             url: that.url,
                             minute: that.minute,
                             enable: that.enable
                         };
+                        var req_url = '';
+                        if(that.id === ''){
+                            req_url = "{:U('Mirror/Index/do_create_checker')}";
+                        }else{
+                            req_url = "{:U('Mirror/Index/do_edit_checker')}";
+                        }
                         $.ajax({
-                            url: "{:U('Mirror/Index/do_create_checker')}",
+                            url: req_url,
                             type: 'post',
                             dataType: 'json',
                             data: data,

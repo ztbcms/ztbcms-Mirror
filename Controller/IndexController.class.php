@@ -55,12 +55,25 @@ class IndexController extends AdminBase {
         $this->ajaxReturn(self::createReturn(true, $result, '操作成功'));
     }
 
+    /**
+     * 编辑Check页
+     */
     function edit_checker() {
-        $this->display();
+        $id = I('get.checker_id');
+        $data = D('Mirror/MirrorChecker')->where(['id' => $id])->find();
+        $this->assign('data', $data);
+        $this->display('create_checker');
     }
 
+    /**
+     * 编辑Checker操作
+     */
     function do_edit_checker() {
-
+        $data = I('post.');
+        $id = $data['id'];
+        unset($data['id']);
+        $result = D('Mirror/MirrorChecker')->where(['id' => $id])->save($data);
+        $this->ajaxReturn(self::createReturn(true, $result, '操作成功'));
     }
 
     /**

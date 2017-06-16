@@ -59,6 +59,7 @@
                             </template>
                         </td>
                         <td >
+                            <a type="button" class="btn btn-primary" :href="'/Mirror/Index/edit_checker?checker_id=' + item.id ">编辑</a>
                             <a :href="'/Mirror/Index/logs?checker_id=' + item.id" type="button" class="btn btn-primary">日志</a>
                             <a :href="'/Mirror/Index/alert_list?checker_id=' + item.id " class="btn btn-primary ">Alert 列表</a>
                             <a :href="'/Mirror/Index/create_alert?checker_id=' + item.id " class="btn btn-success ">新增 Alert</a>
