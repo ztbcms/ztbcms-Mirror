@@ -80,8 +80,7 @@
                             </template>
                         </td>
                         <td >
-                            <button type="button" class="btn btn-primary" @click="handleMessage(item.id)">触发处理</button>
-                            <a :href="'/Mirror/Index/logs?checker_id=' + item.id" type="button" class="btn btn-primary">日志</a>
+                            <button type="button" class="btn btn-danger" @click="doDelete(item.id)">删除</button>
                         </td>
                     </tr>
                     </tbody>
@@ -155,23 +154,29 @@
                             }
                         })
                     },
-                    //处理消息
-                    handleMessage: function (message_id){
-                        $.ajax({
-                            url: "{:U('Message/Message/handleMessage')}",
-                            data: {
-                                message_id: message_id
-                            },
-                            dataType: 'json',
-                            type: 'post',
-                            success: function (res) {
-                                if(res.status){
-                                    layer.msg('操作完成！');
-                                }else{
-                                    layer.msg(res.msg);
+                    //删除
+                    doDelete: function (id){
+                        if(confirm('确认删除？')){
+                            $.ajax({
+                                url: "{:U('Mirror/Index/do_delete_alert')}",
+                                data: {
+                                    id: id
+                                },
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (res) {
+                                    if(res.status){
+                                        layer.msg('操作完成！');
+                                        setTimeout(function(){
+                                            window.location.reload();
+                                        }, 700)
+                                    }else{
+                                        layer.msg(res.msg);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
+
                     }
                 },
                 mounted: function () {

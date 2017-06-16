@@ -62,6 +62,7 @@
                             <a :href="'/Mirror/Index/logs?checker_id=' + item.id" type="button" class="btn btn-primary">日志</a>
                             <a :href="'/Mirror/Index/alert_list?checker_id=' + item.id " class="btn btn-primary ">Alert 列表</a>
                             <a :href="'/Mirror/Index/create_alert?checker_id=' + item.id " class="btn btn-success ">新增 Alert</a>
+                            <button type="button" class="btn btn-danger" @click="doDelete(item.id)">删除</button>
                         </td>
                     </tr>
                     </tbody>
@@ -135,6 +136,30 @@
                             }
                         })
                     },
+                    //删除
+                    doDelete: function (id){
+                        if(confirm('确认删除？')){
+                            $.ajax({
+                                url: "{:U('Mirror/Index/do_delete_checker')}",
+                                data: {
+                                    id: id
+                                },
+                                dataType: 'json',
+                                type: 'post',
+                                success: function (res) {
+                                    if(res.status){
+                                        layer.msg('操作完成！');
+                                        setTimeout(function(){
+                                            window.location.reload();
+                                        }, 700)
+                                    }else{
+                                        layer.msg(res.msg);
+                                    }
+                                }
+                            });
+                        }
+
+                    }
                 },
                 mounted: function () {
                     this.getList();

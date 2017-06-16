@@ -42,6 +42,13 @@ return array(
             ),
 
             array(
+                "route" => "Mirror/Index/do_delete_checker",
+                "type" => 1,
+                "status" => 0,
+                "name" => "删除Checker操作",
+            ),
+
+            array(
                 "route" => "Mirror/Index/alert_list",
                 "type" => 1,
                 "status" => 1,
@@ -65,6 +72,12 @@ return array(
                 "type" => 1,
                 "status" => 0,
                 "name" => "创建Alert操作",
+            ),
+            array(
+                "route" => "Mirror/Index/do_delete_alert",
+                "type" => 1,
+                "status" => 0,
+                "name" => "删除Alert操作",
             ),
             array(
                 "route" => "Mirror/Index/logs",

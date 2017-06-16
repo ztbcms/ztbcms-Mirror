@@ -64,6 +64,17 @@ class IndexController extends AdminBase {
 
     }
 
+    /**
+     * 删除 Checker 操作
+     */
+    function do_delete_checker() {
+        $id = I('post.id');
+
+        D('Mirror/MirrorChecker')->where(['id' => $id])->delete();
+        D('Mirror/MirrorAlert')->where(['checker_id' => $id])->delete();
+        $this->ajaxReturn(self::createReturn(true, null, '操作成功'));
+    }
+
     function view_checker() {
         $this->display();
     }
@@ -122,6 +133,15 @@ class IndexController extends AdminBase {
 
     function do_edit_alert() {
 
+    }
+
+    /**
+     * 删除 Alert 操作
+     */
+    function do_delete_alert() {
+        $id = I('post.id');
+        D('Mirror/MirrorAlert')->delete($id);
+        $this->ajaxReturn(self::createReturn(true, null, '操作成功'));
     }
 
     /**
