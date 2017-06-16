@@ -164,14 +164,14 @@
                 el: '#app',
                 data:{
                     id: "{:I('get.alert_id', '')}",
-                    type: "<?php echo empty($data['type'])? 'email':$data['type']; ?>",
-                    type_value: "<?php echo empty($data['type_value'])? '':$data['type_value']; ?>",
+                    type: "<?php echo !isset($data['type'])? 'email':$data['type']; ?>",
+                    type_value: "<?php echo !isset($data['type_value'])? '':$data['type_value']; ?>",
                     checker_id: "{:I('get.checker_id', empty($data['checker_id'])? '':$data['checker_id'])}",
-                    check_field: "<?php echo addslashes(empty($data['check_field'])? '':$data['check_field']); ?>",
-                    check_operator: "<?php echo empty($data['check_operator'])? '':$data['check_operator']; ?>",
-                    check_value: "<?php echo empty($data['check_value'])? '':$data['check_value']; ?>",
-                    minute:  "<?php echo empty($data['minute'])? '5':$data['minute']; ?>",
-                    enable: "<?php echo empty($data['enable'])? '1':$data['enable']; ?>"
+                    check_field: "<?php echo addslashes(!isset($data['check_field'])? '':$data['check_field']); ?>",
+                    check_operator: "<?php echo !isset($data['check_operator'])? '':$data['check_operator']; ?>",
+                    check_value: "<?php echo !isset($data['check_value'])? '':$data['check_value']; ?>",
+                    minute:  "<?php echo !isset($data['minute'])? '5':$data['minute']; ?>",
+                    enable: "<?php echo !isset($data['enable'])? '1':$data['enable']; ?>"
                 },
                 mounted: function(){
                     $('#app').show();
