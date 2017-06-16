@@ -1,7 +1,7 @@
 <extend name="../../Admin/View/Common/base_layout"/>
 
 <block name="content">
-    <div id="app" style="padding: 8px;">
+    <div id="app" style="padding: 8px;display: none;">
         <div class="row">
             <div class="col-sm-6">
                 <h4>Alert 列表</h4>
@@ -183,6 +183,7 @@
                     }
                 },
                 mounted: function () {
+                    $('#app').show();
                     this.getList();
                 }
             })
