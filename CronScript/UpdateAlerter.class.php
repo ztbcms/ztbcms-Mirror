@@ -28,6 +28,8 @@ class UpdateAlerter extends Cron {
 
         foreach ($alerts as $index => $alert) {
             AlerterService::handleAlert($alert['id']);
+            $next_time = $now + $alert['minute'] * 60 * 60;
+            $db->where(['id' => $alert['id']])->save(['next_time' => $next_time]);
         }
     }
 }
