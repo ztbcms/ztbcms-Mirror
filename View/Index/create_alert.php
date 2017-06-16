@@ -8,7 +8,8 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <h3 class="box-title">新增 Alert</h3>
+                            <?php $_alert_id = I('get.alert_id'); ?>
+                            <h3 class="box-title"><if condition="empty($_alert_id)">新增<else/>编辑</if> Alert</h3>
                             <section style="margin-top: 8px;">
                                 <div class="row">
 
@@ -21,6 +22,13 @@
 
                             <form class="form-horizontal">
                                 <div class="box-body">
+                                    <div class="form-group" style="display: none;">
+                                        <label class="col-sm-2 control-label">Alert ID</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" placeholder="" class="form-control" v-model="id">
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">通知类型</label>
                                         <div class="col-sm-10">
@@ -52,6 +60,10 @@
 <!--                                            <input type="number" step="1" min="1" class="form-control">-->
                                             <select class="form-control"  v-model="check_field">
                                                 <option value="">请选择</option>
+                                                <?php
+                                                 $check_fields = \Mirror\Service\AlerterService::getCheckFields()['data'];
+                                                ?>
+
                                                 <volist name="check_fields" id="check_field">
                                                     <option value="{$check_field['class']}">{$check_field['name']}</option>
                                                 </volist>
@@ -64,6 +76,7 @@
 
                                         <div class="col-sm-10">
                                             <select class="form-control" v-model="check_operator">
+                                                <option value="">请选择</option>
                                                 <option value="GT">大于</option>
                                                 <option value="LT">小于</option>
                                             </select>
@@ -150,14 +163,15 @@
             var App = new Vue({
                 el: '#app',
                 data:{
-                    type: 'email',
-                    type_value: '',
-                    checker_id: "{:I('get.checker_id')}",
-                    check_field: '',
-                    check_operator: 'GT',
-                    check_value: '',
-                    minute: '5',
-                    enable: 1
+                    id: "{:I('get.alert_id', '')}",
+                    type: "<?php echo empty($data['type'])? 'email':$data['type']; ?>",
+                    type_value: "<?php echo empty($data['type_value'])? '':$data['type_value']; ?>",
+                    checker_id: "{:I('get.checker_id', empty($data['checker_id'])? '':$data['checker_id'])}",
+                    check_field: "<?php echo addslashes(empty($data['check_field'])? '':$data['check_field']); ?>",
+                    check_operator: "<?php echo empty($data['check_operator'])? '':$data['check_operator']; ?>",
+                    check_value: "<?php echo empty($data['check_value'])? '':$data['check_value']; ?>",
+                    minute:  "<?php echo empty($data['minute'])? '5':$data['minute']; ?>",
+                    enable: "<?php echo empty($data['enable'])? '1':$data['enable']; ?>"
                 },
                 mounted: function(){
                     $('#app').show();
@@ -172,6 +186,7 @@
                     doConfirm: function () {
                         var that = this;
                         var data = {
+                            id: that.id,
                             type: that.type,
                             type_value: that.type_value,
                             checker_id: that.checker_id,
@@ -181,8 +196,16 @@
                             minute: that.minute,
                             enable: that.enable
                         };
+
+                        var req_url = '';
+                        if(that.id === ''){
+                            req_url = "{:U('Mirror/Index/do_create_alert')}";
+                        }else{
+                            req_url = "{:U('Mirror/Index/do_edit_alert')}";
+                        }
+
                         $.ajax({
-                            url: "{:U('Mirror/Index/do_create_alert')}",
+                            url: req_url,
                             type: 'post',
                             dataType: 'json',
                             data: data,

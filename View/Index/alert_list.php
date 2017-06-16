@@ -47,7 +47,9 @@
                             {{ item.id }}
                         </td>
                         <td>
-                            {{ item.checkerData['url'] }}
+                            <template v-if="item.checkerData && item.checkerData.url">
+                                {{ item.checkerData['url'] }}
+                            </template>
                         </td>
                         <td>
                             {{ item.type }}
@@ -80,6 +82,7 @@
                             </template>
                         </td>
                         <td >
+                            <a type="button" class="btn btn-primary" :href="'/Mirror/Index/edit_alert?alert_id=' + item.id ">编辑</a>
                             <button type="button" class="btn btn-danger" @click="doDelete(item.id)">删除</button>
                         </td>
                     </tr>

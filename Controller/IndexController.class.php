@@ -7,7 +7,6 @@
 namespace Mirror\Controller;
 
 use Common\Controller\AdminBase;
-use Mirror\Service\AlerterService;
 
 class IndexController extends AdminBase {
 
@@ -115,24 +114,36 @@ class IndexController extends AdminBase {
     }
 
     function create_alert() {
-        $check_fields = AlerterService::getCheckFields()['data'];
-        
-        $this->assign('check_fields', $check_fields);
         $this->display();
     }
 
     function do_create_alert() {
         $data = I('post.');
+        $data['check_operator'] = trim($data['check_operator']);
         $result = D('Mirror/MirrorAlert')->add($data);
         $this->ajaxReturn(self::createReturn(true, $result, '操作成功'));
     }
 
+    /**
+     * Alert 编辑页
+     */
     function edit_alert() {
-        $this->display();
+        $id = I('get.alert_id');
+        $data = D('Mirror/MirrorAlert')->where(['id' => $id])->find();
+        $this->assign('data', $data);
+        $this->display('create_alert');
     }
 
+    /**
+     * 编辑
+     */
     function do_edit_alert() {
-
+        $data = I('post.');
+        $data['check_operator'] = trim($data['check_operator']);
+        $id = $data['id'];
+        unset($data['id']);
+        $result = D('Mirror/MirrorAlert')->where(['id' => $id])->save($data);
+        $this->ajaxReturn(self::createReturn(true, $result, '操作成功'));
     }
 
     /**
