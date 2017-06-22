@@ -16,6 +16,7 @@ CREATE TABLE `cms_mirror_log` (
   `status_code` varchar(4) NOT NULL DEFAULT '' COMMENT '状态码',
   `msg` varchar(256) NOT NULL DEFAULT '' COMMENT '信息',
   `result` int(11) NOT NULL DEFAULT '0' COMMENT '0为正常，非0为错误',
+  `response_time` int(11) NOT NULL DEFAULT '0' COMMENT '响应时长',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 

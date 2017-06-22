@@ -47,11 +47,13 @@ class PingWebsiteJob extends Job {
             $statusCode = $response->getStatusCode();
             $data['status_code'] = $statusCode;
             $data['result'] = 0;
+
         } catch (\Exception $e) {
             $data['result'] = 1;
             $data['msg'] = $e->getMessage();
         } finally {
             $data['end_time'] = Utils::now();
+            $data['response_time'] = $data['end_time'] - $data['start_time'];
 
             D('Mirror/MirrorLog')->add($data);
         }
