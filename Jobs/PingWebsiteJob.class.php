@@ -39,9 +39,10 @@ class PingWebsiteJob extends Job {
 
         $data = [
             'url' => $this->url,
-            'start_time' => Utils::now(),
+            'create_time' => time(),
             'checker_id' => $this->checker_id
         ];
+        $start_time = Utils::now();
         try {
             $response = $client->request('GET', $this->url);
             $statusCode = $response->getStatusCode();
@@ -52,8 +53,7 @@ class PingWebsiteJob extends Job {
             $data['result'] = 1;
             $data['msg'] = $e->getMessage();
         } finally {
-            $data['end_time'] = Utils::now();
-            $data['response_time'] = $data['end_time'] - $data['start_time'];
+            $data['response_time'] = Utils::now() - $start_time;
 
             D('Mirror/MirrorLog')->add($data);
         }
