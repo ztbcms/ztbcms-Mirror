@@ -1,7 +1,7 @@
 <extend name="../../Admin/View/Common/base_layout"/>
 
 <block name="content">
-    <div id="app" style="padding: 8px;">
+    <div id="app" style="padding: 8px; display: none;">
 <!--        <div class="row">-->
 <!--            <div class="col-sm-6">-->
 <!--                <h4>搜索</h4>-->
@@ -35,10 +35,9 @@
                     <tr style="background: ghostwhite;">
                         <td width="50" align="left">ID</td>
                         <td width="100" align="left">网址</td>
-                        <td width="100" align="left">开始时间</td>
-                        <td width="100" align="left">结束时间</td>
+                        <td width="100" align="left">创建时间</td>
                         <td width="80" align="left">状态码</td>
-                        <td width="80" align="left">耗时</td>
+                        <td width="80" align="left">响应时间</td>
                         <td width="80" align="left">执行结果</td>
                     </tr>
                     </thead>
@@ -51,17 +50,14 @@
                             {{ item.url }}
                         </td>
                         <td >
-                            {{ item.start_time | getFormatTimeWithMillionScecond }}
+                            {{ item.create_time | getFormatTime }}
 
-                        </td>
-                        <td >
-                            {{ item.end_time | getFormatTimeWithMillionScecond }}
                         </td>
                         <td >
                             {{ item.status_code  }}
                         </td>
                         <td >
-                            {{ item.end_time - item.start_time  }} ms
+                            {{ item.response_time  }} ms
                         </td>
                         <td >
                             <template v-if="item.result == 0">
@@ -105,17 +101,16 @@
                     }
                 },
                 filters: {
-                    getFormatTimeWithMillionScecond: function (value) {
-                        if(value == '' || value == 0){
+                    getFormatTime: function (value) {
+                        if(value === '' || value === 0){
                             return '/';
                         }
-                        var time = new Date(parseInt(value));
+                        var time = new Date(parseInt(value) * 1000);
                         var y = time.getFullYear();
                         var m = time.getMonth() + 1;
                         var d = time.getDate();
                         var h = time.getHours();
                         var i = time.getMinutes();
-                        var ms = time.getMilliseconds();
                         var res = y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d)
                         res += '  ' + (h < 10 ? '0' + h : h) + ':' + (i < 10 ? '0' + i : i);
                         return res;
@@ -163,6 +158,7 @@
                     }
                 },
                 mounted: function () {
+                    $('#app').show();
                     this.getList();
                 }
             })
