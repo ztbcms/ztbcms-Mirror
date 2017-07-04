@@ -11,7 +11,7 @@ CREATE TABLE `cms_mirror_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `checker_id` int(11) NOT NULL COMMENT '所属Checker ID',
   `url` varchar(1024) NOT NULL DEFAULT '' COMMENT '网址',
-  `create_time` int(13) NOT NULL COMMENT '创建时间',
+  `create_time` int(11) NOT NULL COMMENT '创建时间',
   `status_code` varchar(4) NOT NULL DEFAULT '' COMMENT '状态码',
   `msg` varchar(256) NOT NULL DEFAULT '' COMMENT '信息',
   `result` int(11) NOT NULL DEFAULT '0' COMMENT '0为正常，非0为错误',
