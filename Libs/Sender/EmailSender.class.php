@@ -21,7 +21,7 @@ class EmailSender extends Sender {
      * @return boolean
      */
     function doSend(Message $message) {
-        $res = SendMail($message->getReceiver(), '警报', $message->getContent());
+        $res = sendMail($message->getReceiver(), '警报', $message->getContent());
         if($res){
             return true;
         }
